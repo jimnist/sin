@@ -1,4 +1,4 @@
-source :rubygems
+require 'rubygems'
 
 gem 'sinatra'
 gem 'pony'

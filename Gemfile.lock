@@ -1,5 +1,4 @@
 GEM
-  remote: http://rubygems.org/
   specs:
     bond (0.4.3)
     i18n (0.6.4)
