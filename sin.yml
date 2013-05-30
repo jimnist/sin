@@ -1,0 +1,9 @@
+# needs to be symlinked to ~/.tmuxinator/sin.yml
+# ln -s ~/wrk/personal/sin/sin.yml ~/.tmuxinator/sin.yml
+# http://stackoverflow.com/questions/9812000/specify-pane-percentage-in-tmuxinator-project
+project_name: sin
+project_root: ~/wrk/personal/sin
+# socket_name: foo # Not needed. Remove to use default socket
+tabs:
+  - console: subl .
+  - shotgun:  shotgun

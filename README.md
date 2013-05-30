@@ -1,4 +1,6 @@
-this is a little sinatra app to test out some simple web services for simple web sites.
+this is my original sinatra app.
+
+it's to test out some simple web services for simple web sites.
 
 functions like 'contact-us' and 'subscribe'
 
@@ -14,12 +16,12 @@ POST /subscribe
 success: 200 - returns the email address
 error:
 
-####tux
-used for testing and what not. see [tux readme](https://github.com/cldwalker/tux)
+###tux
+used for testing and what not. see the [tux readme](https://github.com/cldwalker/tux).
 
 ###some links
 
-these articles were helpful in the creation of this code. i also made use of this book: [Service-Oriented Design with Ruby and Rails](http://www.amazon.com/gp/product/0321659368/ref=as_li_qf_sp_asin_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321659368&linkCode=as2&tag=chamaxwoo-20) by Paul Dix even though i don't use rails.
+these articles were helpful in the creation of this code. i also made use of this book: [Service-Oriented Design with Ruby and Rails](http://www.amazon.com/gp/product/0321659368/ref=as_li_qf_sp_asin_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321659368&linkCode=as2&tag=chamaxwoo-20) by Paul Dix even though i'm not using rails.
 
 http://stackoverflow.com/questions/9855656/how-to-submit-a-form-using-javascript
 
