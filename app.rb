@@ -42,6 +42,41 @@ post '/subscribe' do
   end
 end
 
+# REQUEST BODY:
+# {
+#   "email" : "john.doe@xample.com",
+#   "name" : "John Doe",
+#   "message" : "super interesting message goes here"
+# }
+#
+# RETURNS:
+#   200 if all is well
+#   400 with message(s) if not
+#   500 if something unexpected goes wrong
+#
+post '/contact-us' do
+  content_type :json
+
+  begin
+    json = JSON.parse(request.body.read)
+    email = json['email']
+    name = json['name']
+    message = json['message']
+
+
+    if valid_email?(email)
+      # send emails and or save the email to a database
+      puts email
+      email_notification(settings.email[:from], "contact-us: #{email}", "#{message}")
+      return { :email => "#{email}" }.to_json
+    else
+      error 400, { :errors => ["#{email} is not a valid email"] }.to_json
+    end
+  rescue => e
+    error 500, e.message.to_json
+  end
+end
+
 # post '/contact-us' do
 #   json_data = JSON.parse(request.body.read)
 #   # data.to_json
