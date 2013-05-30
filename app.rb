@@ -4,30 +4,12 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'sinatra'
+require "sinatra/config_file"
 require 'json'
 require 'mail'
 require 'resolv'
 
-get '/contact-bosco' do
-  "Bosco"
-end
-
-post '/contact-bosco' do
-  name = 'Bosco'
-  "name: #{name}"
-end
-
-get '/contact-us' do
-  'contacto'
-end
-
-# post '/contact-us' do
-#   json_data = JSON.parse(request.body.read)
-#   # data.to_json
-#  # "#name: {params[:name]}"
-#   # "contact-us"
-#   redirect "http://localhost:4000"
-# end
+config_file '/config.yml'
 
 # REQUEST BODY:
 # {
@@ -49,6 +31,7 @@ post '/subscribe' do
     if valid_email?(email)
       # send emails and or save the email to a database
       puts email
+      email_notification(settings.email.to, "subscribe: #{email}", 'this user is subscribing to our mailing list.')
       return { :email => "#{email}" }.to_json
     else
       error 400, { :errors => ["#{email} is not a valid email"] }.to_json
@@ -56,6 +39,37 @@ post '/subscribe' do
   rescue => e
     error 500, e.message.to_json
   end
+end
+
+# post '/contact-us' do
+#   json_data = JSON.parse(request.body.read)
+#   # data.to_json
+#  # "#name: {params[:name]}"
+#   # "contact-us"
+#   redirect "http://localhost:4000"
+# end
+
+# for testing only
+get '/contact-bosco' do
+  "Bosco"
+end
+
+# this is set up to send through google.
+# see Pony documentation for other options
+def email_notification(from_email, subject, body='')
+  Pony.mail({
+    :to => settings.email.to,
+    :via => :smtp,
+    :via_options => {
+      :address              => settings.smtp.server,
+      :port                 => settings.smtp.port,
+      :enable_starttls_auto => true,
+      :user_name            => settings.smtp.username,
+      :password             => settings.smtp.password,
+      :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
+      :domain               => settings.smtp.domain # the HELO domain provided by the client to the server
+    }
+  })
 end
 
 def valid_email?(email)
@@ -70,3 +84,4 @@ def valid_email?(email)
     false
   end
 end
+
