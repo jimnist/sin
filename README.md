@@ -18,7 +18,7 @@ $ curl -H "Accept: application/json" -H "Content-type: application/json" -X POST
 ```
 
 ###configuration
-copy __example.config.yml__ to __config.yml__
+copy __example.config.yml__ to __config.yml__ and fill in your variables. tests will fail if you don't.
 
 ###requests
 POST /subscribe - expects 'email'

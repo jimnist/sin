@@ -31,7 +31,6 @@ post '/subscribe' do
 
     if valid_email?(email)
       # send emails and or save the email to a database
-      puts email
       email_notification(settings.email[:from], "subscribe: #{email}", "#{email} wants to subscribe to our mailing list.")
       return { :email => "#{email}" }.to_json
     else
@@ -93,8 +92,6 @@ end
 # this is set up to send through google.
 # see Pony documentation for other options
 def email_notification(from_email, subject, body='')
-  puts "       from_email: #{from_email}"
-  puts "settings.email[:to]: #{settings.email[:to]}"
   Pony.mail({
     :to => settings.email[:to],
     :subject => subject,
