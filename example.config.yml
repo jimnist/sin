@@ -1,1 +1,13 @@
 # config file for REST api
+#
+email:
+  to:   'jim.doe@example.com,joe.doe@example.com'
+  from: 'jane.doe@example.com'
+
+smtp:
+  server: 'smtp.gmail.com'
+  port: '587'
+  username: '<your username goes here>'
+  password: '<your password goes here>'
+  domain: 'localhost.localdomain'
+

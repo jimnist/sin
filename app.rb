@@ -6,10 +6,11 @@ require 'bundler/setup'
 require 'sinatra'
 require "sinatra/config_file"
 require 'json'
+require 'pony'
 require 'mail'
 require 'resolv'
 
-config_file '/config.yml'
+config_file 'config.yml'
 
 # REQUEST BODY:
 # {
@@ -31,7 +32,7 @@ post '/subscribe' do
     if valid_email?(email)
       # send emails and or save the email to a database
       puts email
-      email_notification(settings.email.to, "subscribe: #{email}", 'this user is subscribing to our mailing list.')
+      email_notification(settings.email[:from], "subscribe: #{email}", "#{email} wants to subscribe to our mailing list.")
       return { :email => "#{email}" }.to_json
     else
       error 400, { :errors => ["#{email} is not a valid email"] }.to_json
@@ -57,17 +58,21 @@ end
 # this is set up to send through google.
 # see Pony documentation for other options
 def email_notification(from_email, subject, body='')
+  puts "       from_email: #{from_email}"
+  puts "settings.email[:to]: #{settings.email[:to]}"
   Pony.mail({
-    :to => settings.email.to,
+    :to => settings.email[:to],
+    :subject => subject,
+    :body => body,
     :via => :smtp,
     :via_options => {
-      :address              => settings.smtp.server,
-      :port                 => settings.smtp.port,
+      :address              => settings.smtp[:server],
+      :port                 => settings.smtp[:port],
       :enable_starttls_auto => true,
-      :user_name            => settings.smtp.username,
-      :password             => settings.smtp.password,
+      :user_name            => settings.smtp[:username],
+      :password             => settings.smtp[:password],
       :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
-      :domain               => settings.smtp.domain # the HELO domain provided by the client to the server
+      :domain               => settings.smtp[:domain] # the HELO domain provided by the client to the server
     }
   })
 end
