@@ -1,3 +1,13 @@
+###request
+POST /contact-us
+
+POST /subscribe
+
+
+###responses
+success: 200 - returns the email address
+error:
+
 ###tux
 used for testing and what not. see readme
 
