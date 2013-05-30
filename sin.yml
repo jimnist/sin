@@ -10,5 +10,4 @@ tabs:
       panes:
         - subl . && pull           # this does a bundle install too
         - sleep 11 & tux           # sleep to let the bundle finish
-  - console: subl .
   - shotgun:  shotgun

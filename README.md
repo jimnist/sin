@@ -1,6 +1,5 @@
-this is my original sinatra app.
 
-it's to test out some simple web services for simple web sites.
+this sinatra app is to test out some simple web services for simple web sites.
 
 functions like 'contact-us' and 'subscribe'
 
@@ -8,19 +7,24 @@ maybe someday, i'll make it into a gem. maybe.
 
 ###development
 i use [tmuxinator](https://github.com/aziz/tmuxinator) and __sin.yml__ is the tmuxinator config file for me.
+i also rely on tux readme](https://github.com/cldwalker/tux) for figuring things out.
+
+it's also easy to use curl for testing
+```
+$ curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"email":"john.doe@xample.com"}' http://localhost:9393/subscribe
+```
 
 ###requests
-POST /contact-us
+POST /subscribe - expects 'email'
 
-POST /subscribe
+POST /contact-us - expects 'name', 'email' and 'message'
+
 
 
 ###responses
 success: 200 - returns the email address
-error:
+error:   400 - returns any errors for display
 
-###tux
-used for testing and what not. see the [tux readme](https://github.com/cldwalker/tux).
 
 ###some links
 
