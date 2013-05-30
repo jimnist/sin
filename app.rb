@@ -6,10 +6,7 @@ require 'bundler/setup'
 require 'sinatra'
 require 'json'
 require 'mail'
-
-before do
-  content_type :json
-end
+require 'resolv'
 
 get '/contact-bosco' do
   "Bosco"
@@ -43,37 +40,32 @@ end
 #   500 if something unexpected goes wrong
 #
 post '/subscribe' do
+  content_type :json
+
   begin
-    # data = request.body.read
     json = JSON.parse(request.body.read)
     email = json['email']
 
-    if email_valid?(email)
+    if valid_email?(email)
       # send emails and or save the email to a database
-      return email
+      return { :email => "#{email}" }.to_json
     else
-      error 400, "#{email} is not a valid email"
+      error 400, { :errors => ["#{email} is not a valid email"] }.to_json
     end
   rescue => e
     error 500, e.message.to_json
   end
 end
 
-# based on http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
-def email_valid?(email)
-  begin
-    m = Mail::Address.new(email)
-    r = m.domain && m.address == value
-    t = m.__send__(:tree)
-    # We need to dig into treetop
-    # A valid domain must have dot_atom_text elements size > 1
-    # user@localhost is excluded
-    # treetop must respond to domain
-    # We exclude valid email values like <user@localhost.com>
-    # Hence we use m.__send__(tree).domain
-    r &&= (t.domain.dot_atom_text.elements.size > 1)
-    true
-  rescue => e
+def valid_email?(email)
+  reggie = /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i
+  if email =~ reggie
+    domain = email.match(/\@(.+)/)[1]
+    Resolv::DNS.open do |dns|
+      @mx = dns.getresources(domain, Resolv::DNS::Resource::IN::MX)
+    end
+    @mx.size > 0 ? true : false
+  else
     false
   end
 end
