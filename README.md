@@ -4,7 +4,7 @@ functions like 'contact-us' and 'subscribe'
 
 maybe someday, i'll make it into a gem. maybe.
 
-###request
+###requests
 POST /contact-us
 
 POST /subscribe
@@ -14,7 +14,7 @@ POST /subscribe
 success: 200 - returns the email address
 error:
 
-###tux
+####tux
 used for testing and what not. see [tux readme](https://github.com/cldwalker/tux)
 
 ###some links
