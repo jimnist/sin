@@ -17,6 +17,9 @@ it's also easy to use curl for testing
 $ curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"email":"john.doe@xample.com"}' http://localhost:9393/subscribe
 ```
 
+###configuration
+copy __example.config.yml__ to __config.yml__
+
 ###requests
 POST /subscribe - expects 'email'
 
