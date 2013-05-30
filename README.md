@@ -6,6 +6,9 @@ functions like 'contact-us' and 'subscribe'
 
 maybe someday, i'll make it into a gem. maybe.
 
+###development
+i use [tmuxinator](https://github.com/aziz/tmuxinator) and __sin.yml__ is the tmuxinator config file for me.
+
 ###requests
 POST /contact-us
 

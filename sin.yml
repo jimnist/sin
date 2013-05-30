@@ -5,5 +5,10 @@ project_name: sin
 project_root: ~/wrk/personal/sin
 # socket_name: foo # Not needed. Remove to use default socket
 tabs:
+  - sin:
+      layout: a467,88x47,0,0[88x28,0,0,88x18,0,29]
+      panes:
+        - subl . && pull           # this does a bundle install too
+        - sleep 11 & tux           # sleep to let the bundle finish
   - console: subl .
   - shotgun:  shotgun
