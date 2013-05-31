@@ -9,7 +9,7 @@ maybe someday, i'll make it into a gem. maybe.
 i use [tmuxinator](https://github.com/aziz/tmuxinator) and __sin.yml__ is the tmuxinator config file for me.
 i also rely on tux readme](https://github.com/cldwalker/tux) for figuring things out.
 ```
->> resp = post '/subscribe', { :email => 'john.doe@example.com' }.to_json
+>> post '/subscribe', { :email => 'john.doe@gmail.org' }.to_json
 ```
 
 it's also easy to use curl for testing

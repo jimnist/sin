@@ -109,16 +109,9 @@ def email_notification(from_email, subject, body='')
   })
 end
 
+# this is super simple sanity check.
+# look for an '@' and a '.', in that order
 def valid_email?(email)
-  reggie = /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i
-  if email =~ reggie
-    domain = email.match(/\@(.+)/)[1]
-    Resolv::DNS.open do |dns|
-      @mx = dns.getresources(domain, Resolv::DNS::Resource::IN::MX)
-    end
-    @mx.size > 0 ? true : false
-  else
-    false
-  end
+  email =~ /.+@.+\..+/i
 end
 
