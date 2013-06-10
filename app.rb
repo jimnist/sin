@@ -62,12 +62,10 @@ post '/contact-us' do
     name = json['name']
     message = json['message']
 
-
     if valid_email?(email)
       # send emails and or save the email to a database
-      puts email
       email_notification(settings.email[:from], "contact-us: #{email}", "#{message}")
-      return { :email => "#{email}" }.to_json
+      { :email => "#{email}" }.to_json
     else
       error 400, { :errors => ["#{email} is not a valid email"] }.to_json
     end
